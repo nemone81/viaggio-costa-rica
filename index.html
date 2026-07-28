@@ -1,0 +1,1198 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Costa Rica 2026 — Itinerario</title>
+
+<style>
+  :root {
+    --ground: #F2F5EF;
+    --surface: #FFFFFF;
+    --surface-2: #E8EFE5;
+    --ink: #14211B;
+    --ink-2: #4C5C54;
+    --ink-3: #74857B;
+    --line: #D7E0D4;
+    --accent: #0F6B52;
+    --accent-soft: #DCEBE3;
+    --sea: #17707F;
+    --sea-soft: #DCEDF0;
+    --sun: #A66C12;
+    --sun-soft: #F4E9D4;
+    --shadow: 0 1px 2px rgba(20, 33, 27, .05), 0 8px 24px -12px rgba(20, 33, 27, .18);
+
+    --serif: ui-serif, "New York", "Iowan Old Style", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+
+    --pad: clamp(14px, 4vw, 22px);
+    --radius: 14px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0C1411;
+      --surface: #131E19;
+      --surface-2: #1B2A23;
+      --ink: #E6EEE8;
+      --ink-2: #A5B7AC;
+      --ink-3: #7B8D83;
+      --line: #26362E;
+      --accent: #4FB894;
+      --accent-soft: #16342A;
+      --sea: #5FC2D3;
+      --sea-soft: #12313A;
+      --sun: #DCA95A;
+      --sun-soft: #33280F;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -12px rgba(0, 0, 0, .6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0C1411;
+    --surface: #131E19;
+    --surface-2: #1B2A23;
+    --ink: #E6EEE8;
+    --ink-2: #A5B7AC;
+    --ink-3: #7B8D83;
+    --line: #26362E;
+    --accent: #4FB894;
+    --accent-soft: #16342A;
+    --sea: #5FC2D3;
+    --sea-soft: #12313A;
+    --sun: #DCA95A;
+    --sun-soft: #33280F;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -12px rgba(0, 0, 0, .6);
+  }
+
+  :root[data-theme="light"] {
+    --ground: #F2F5EF;
+    --surface: #FFFFFF;
+    --surface-2: #E8EFE5;
+    --ink: #14211B;
+    --ink-2: #4C5C54;
+    --ink-3: #74857B;
+    --line: #D7E0D4;
+    --accent: #0F6B52;
+    --accent-soft: #DCEBE3;
+    --sea: #17707F;
+    --sea-soft: #DCEDF0;
+    --sun: #A66C12;
+    --sun-soft: #F4E9D4;
+    --shadow: 0 1px 2px rgba(20, 33, 27, .05), 0 8px 24px -12px rgba(20, 33, 27, .18);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--pad) 96px; }
+
+  /* ---------- header ---------- */
+
+  .masthead { padding: 26px 0 14px; }
+
+  .eyebrow {
+    font-size: 11.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(38px, 12vw, 58px);
+    line-height: .95;
+    letter-spacing: -.02em;
+    margin: 8px 0 10px;
+    text-wrap: balance;
+  }
+
+  h1 .accent { color: var(--accent); }
+
+  .dates {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-2);
+    letter-spacing: -.01em;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  .stat b {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat.live { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+  .stat.live b { color: var(--accent); }
+
+  /* ---------- spine: the 8 bases in order ---------- */
+
+  .spine-label {
+    font-size: 11.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin: 26px 0 9px;
+  }
+
+  .spine {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    margin: 0 calc(var(--pad) * -1);
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+  }
+
+  .spine::-webkit-scrollbar { display: none; }
+
+  .leg {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .leg button {
+    appearance: none;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 7px 11px;
+    font: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .18s, border-color .18s;
+  }
+
+  .leg button:hover { border-color: var(--accent); }
+  .leg button .nights {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-3);
+    letter-spacing: -.01em;
+  }
+
+  .leg .link {
+    flex: 0 0 18px;
+    align-self: center;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ---------- controls ---------- */
+
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--ground) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin: 20px calc(var(--pad) * -1) 0;
+    padding: 10px var(--pad);
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+
+  .controls.stuck { border-bottom-color: var(--line); }
+
+  .tabs {
+    display: flex;
+    gap: 3px;
+    background: var(--surface-2);
+    padding: 3px;
+    border-radius: 11px;
+  }
+
+  .tabs button {
+    flex: 1;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-radius: 9px;
+    padding: 8px 6px;
+    font: inherit;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: background .18s, color .18s;
+  }
+
+  .tabs button[aria-selected="true"] {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+  }
+
+  .searchrow {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    align-items: center;
+  }
+
+  .search {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search svg {
+    position: absolute;
+    left: 10px;
+    width: 15px;
+    height: 15px;
+    color: var(--ink-3);
+    pointer-events: none;
+  }
+
+  .search input {
+    width: 100%;
+    appearance: none;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 12px 9px 32px;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  .search input::placeholder { color: var(--ink-3); }
+  .search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .ghost {
+    appearance: none;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font: inherit;
+    font-size: 13px;
+    color: var(--ink-2);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .ghost:hover { color: var(--ink); border-color: var(--accent); }
+
+  /* ---------- day cards ---------- */
+
+  .list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+
+  .day {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 108px;
+  }
+
+  .day.today { border-color: var(--accent); }
+
+  .day > summary {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 13px 14px;
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+  }
+
+  .day > summary::-webkit-details-marker { display: none; }
+  .day > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+
+  .daymark {
+    flex: 0 0 42px;
+    text-align: center;
+    padding-top: 1px;
+  }
+
+  .daymark .dnum {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-3);
+    letter-spacing: .04em;
+  }
+
+  .daymark .dday {
+    font-family: var(--serif);
+    font-size: 25px;
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -.02em;
+  }
+
+  .daymark .dmon {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--ink-3);
+  }
+
+  .today .daymark .dday { color: var(--accent); }
+
+  .dayhead { flex: 1; min-width: 0; }
+
+  .place {
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.25;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    text-wrap: balance;
+  }
+
+  .place .arrow { color: var(--sea); font-weight: 400; }
+
+  .teaser {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    margin-top: 3px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .day[open] .teaser { display: none; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+
+  .chip {
+    font-size: 11.5px;
+    line-height: 1;
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--ink-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .chip b { font-family: var(--mono); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .chip.move { background: var(--sea-soft); color: var(--sea); }
+  .chip.cost { background: var(--sun-soft); color: var(--sun); }
+  .chip.flag { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+  .caret {
+    flex: 0 0 auto;
+    align-self: center;
+    width: 20px;
+    height: 20px;
+    color: var(--ink-3);
+    transition: transform .22s ease;
+  }
+
+  .day[open] .caret { transform: rotate(180deg); }
+
+  /* ---------- day body ---------- */
+
+  .body { padding: 0 14px 14px; }
+  .day[open] .body { animation: reveal .26s ease both; }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .day[open] .body { animation: none; }
+    .caret { transition: none; }
+    * { scroll-behavior: auto !important; }
+  }
+
+  .sect { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 12px; }
+  .sect:first-child { border-top: 0; margin-top: 0; padding-top: 2px; }
+
+  .sect > h3 {
+    font-size: 11px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+
+  .timeline { display: flex; flex-direction: column; gap: 12px; }
+
+  .slot { display: flex; gap: 11px; }
+
+  .slot .rail {
+    flex: 0 0 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 6px;
+  }
+
+  .slot .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: 0 0 auto;
+  }
+
+  .slot .stem { flex: 1; width: 1px; background: var(--line); margin-top: 4px; }
+  .slot:last-child .stem { display: none; }
+
+  .slot .when {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .slot p { margin: 2px 0 0; font-size: 15px; }
+
+  .tip {
+    margin-top: 7px;
+    padding: 8px 10px;
+    background: var(--surface-2);
+    border-radius: 9px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+
+  .tip .tl {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink-3);
+    margin-bottom: 2px;
+  }
+
+  .plain { margin: 0; font-size: 15px; }
+  .plain + .plain { margin-top: 6px; }
+
+  .note-box {
+    display: flex;
+    gap: 9px;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+
+  .note-box .bar { flex: 0 0 2px; background: var(--sun); border-radius: 2px; }
+
+  .stay {
+    background: var(--surface-2);
+    border-radius: 11px;
+    padding: 11px 12px;
+  }
+
+  .stay .name { font-family: var(--serif); font-size: 17px; font-weight: 600; }
+  .stay .meta { font-size: 13.5px; color: var(--ink-2); margin-top: 3px; }
+
+  .stay .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 9px;
+  }
+
+  .money { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  /* ---------- legs / stays views ---------- */
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .card h2 {
+    font-family: var(--serif);
+    font-size: 21px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -.01em;
+  }
+
+  .card .sub {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+
+  .card .lead { font-size: 14px; color: var(--ink-2); margin: 9px 0 0; }
+
+  .daylinks { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 11px; }
+
+  .daylink {
+    appearance: none;
+    background: var(--surface-2);
+    border: 0;
+    border-radius: 7px;
+    padding: 6px 9px;
+    font: inherit;
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+
+  .daylink:hover { background: var(--accent-soft); color: var(--accent); }
+
+  .stayhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .stayhead .amt {
+    font-family: var(--mono);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--sun);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .deadline {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--ink-2);
+  }
+
+  .deadline.warn { background: var(--sun-soft); color: var(--sun); font-weight: 600; }
+  .deadline.past { background: var(--surface-2); color: var(--ink-3); text-decoration: line-through; }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px;
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+
+  .total .big {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .empty {
+    text-align: center;
+    color: var(--ink-3);
+    font-size: 14px;
+    padding: 40px 0;
+  }
+
+  mark {
+    background: var(--accent-soft);
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+
+  .foot {
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--ink-3);
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  .foot .src {
+    display: inline-block;
+    margin-bottom: 4px;
+    padding: 7px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .foot .src:hover { border-color: var(--accent); }
+  .foot .src:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  [hidden] { display: none !important; }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Itinerario famiglia · agosto 2026</div>
+    <h1>Costa <span class="accent">Rica</span></h1>
+    <div class="dates">ven 31 lug → lun 17 ago 2026 · Fabio, Eleonora, Irene, Viola</div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="spine-label">Il percorso</div>
+  <nav class="spine" id="spine" aria-label="Tappe del viaggio"></nav>
+
+  <div class="controls" id="controls">
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-view="days">Giorni</button>
+      <button role="tab" aria-selected="false" data-view="legs">Tappe</button>
+      <button role="tab" aria-selected="false" data-view="stays">Alloggi</button>
+    </div>
+    <div class="searchrow" id="searchrow">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="q" placeholder="Cerca attività, hotel, note…" autocomplete="off">
+      </label>
+      <button class="ghost" id="toggleAll">Apri tutto</button>
+    </div>
+  </div>
+
+  <main>
+    <div class="list" id="days"></div>
+    <div class="list" id="legs" hidden></div>
+    <div class="list" id="stays" hidden></div>
+  </main>
+
+  <p class="foot">
+    <a class="src" href="https://docs.google.com/spreadsheets/d/18fZee66ex_kRnWUK418kOjPAFTb_Md65Ld-G0UGV818/edit?gid=1353912160" target="_blank" rel="noopener">Apri il foglio Google</a><br>
+    Dati allineati al <span class="money">28 lug 2026</span> · gli importi sono quelli segnati sul foglio.
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============ dati ============ */
+
+  const STAYS = [
+    { id: "sj1", name: "Aloft San José Hotel", area: "San José", price: 115, canc: "2026-07-27", by: "Fabio", meta: "Notte di arrivo, vicino all'aeroporto." },
+    { id: "tor", name: "Aracari Garden Hostel", area: "Tortuguero", price: 200, canc: "2026-07-30", by: "Eleonora", meta: "Appartamento senza vera cucina · prenotato su Booking." },
+    { id: "pv",  name: "Bambutel Cocles", area: "Puerto Viejo", price: 320, canc: "2026-07-31", by: "Eleonora", meta: "Camera familiare, colazione inclusa, vicino a Playa Cocles · Booking." },
+    { id: "ar",  name: "Hotel Roca Negra", area: "La Fortuna", price: 240, canc: "2026-07-31", by: "Eleonora", meta: "Camera queen superiore con patio, senza colazione, piscina." },
+    { id: "mv",  name: "1968 House", area: "Monteverde", price: 170, canc: "2026-08-04", by: "Eleonora", meta: "" },
+    { id: "ma",  name: "Villa Pratz", area: "Manuel Antonio", price: 239, canc: "2026-08-10", by: "Eleonora", meta: "Camera quadrupla economy, colazione inclusa, piccola piscina." },
+    { id: "uv",  name: "Well Melody", area: "Uvita · Marino Ballena", price: 290, canc: "2026-07-28", by: "Eleonora", meta: "Casa vacanze con piscina, due camere da letto e barbecue. Il più bello e il più economico." },
+    { id: "sj2", name: "La Riviera Hotel", area: "San José", price: 115, canc: "2026-08-11", by: "", meta: "Camera standard, colazione inclusa, navetta da e per l'aeroporto." }
+  ];
+
+  const DAYS = [
+    {
+      n: 1, date: "2026-07-31", place: "San José", leg: "sj1", stay: "sj1",
+      kind: "volo",
+      blocks: [
+        { k: "slot", when: "Volo", text: "FCO 11:00 → SJO 20:19" },
+        { k: "slot", when: "Sera", text: "Ritiro dell'auto a noleggio e trasferimento in hotel." }
+      ],
+      move: "Trasferimento in hotel",
+      note: "Noleggio auto all'aeroporto."
+    },
+    {
+      n: 2, date: "2026-08-01", place: "Tortuguero", leg: "tor", stay: "tor",
+      kind: "trasferimento",
+      blocks: [
+        { k: "slot", when: "Pomeriggio", text: "Arrivo dopo pranzo. Relax in villaggio e in piscina." },
+        { k: "slot", when: "Sera", text: "Tartarughe." }
+      ],
+      move: "Auto privata fino a La Pavona (circa 3-4 ore) e poi barca (circa 1-1,5 ore).",
+      moveTag: "4-5h",
+      note: "Biglietti Pavona → Tortuguero alle 15:15 / 15:30. Parcheggio prenotato."
+    },
+    {
+      n: 3, date: "2026-08-02", place: "Tortuguero", leg: "tor", stay: "tor",
+      blocks: [
+        { k: "slot", when: "All'alba", text: "Canoa nei canali. È l'attività principale: si scivola silenziosamente sull'acqua. A 6 e 9 anni sono nell'età perfetta per giocare a “chi avvista prima l'animale”. Vedrete sicuramente scimmie urlatrici, bradipi e basilischi, le lucertole che corrono sull'acqua." },
+        { k: "slot", when: "Il villaggio", text: "Tortuguero è un paesino di una sola strada di sabbia, senza auto. Le bambine possono camminare liberamente, mangiare un gelato al cocco e guardare i bambini locali che giocano a calcio." },
+        { k: "slot", when: "Sentiero del parco", text: "C'è un sentiero terrestre facile e pianeggiante. È un po' fangoso: noleggiate gli stivali di gomma sul posto, le bambine li adoreranno. Perfetto per una passeggiata di un'ora." },
+        { k: "slot", when: "Sea Turtle Conservancy", text: "Un piccolo centro visitatori molto carino dove spiegano il ciclo di vita delle tartarughe con video e mostre adatte ai bambini." }
+      ],
+      move: "Nessuno spostamento",
+      note: "Ristorante El Patio consigliato. Tour de Canoa, Tour de Tortugas y Caminata Diurna Guiada: 89 $ per adulto e 79 $ per bambino, escluso l'ingresso al Parco Nazionale."
+    },
+    {
+      n: 4, date: "2026-08-03", place: "Tortuguero → Puerto Viejo e Cahuita", leg: "pv", stay: "pv",
+      kind: "trasferimento",
+      blocks: [ { k: "plain", text: "Spostamento e relax." } ],
+      move: "Da Tortuguero a Puerto Viejo: ~3,5 ore in auto + 1,5 ore di barca.",
+      moveTag: "5h"
+    },
+    {
+      n: 5, date: "2026-08-04", place: "Puerto Viejo e Cahuita", leg: "pv", stay: "pv",
+      blocks: [
+        { k: "slot", when: "Mattina · 9:30", text: "Jaguar Rescue Center, a circa 10 minuti da Puerto Viejo. È l'attività numero uno per le famiglie: vedrete da vicino il lavoro di recupero di bradipi, scimmie e tucani. Dura circa 1h 30m." },
+        { k: "tip", label: "Orari", text: "Tour collettivi alle 9:30 e alle 11:30." },
+        { k: "slot", when: "Pranzo", text: "In una delle sodas, le trattorie locali, a Playa Cocles." },
+        { k: "slot", when: "Pomeriggio", text: "Pedalata in “Banana Bike”. Noleggiate le biciclette e percorrete la strada costiera pianeggiante verso Playa Chiquita: una spiaggia protetta da rocce che formano piccole piscine naturali, ideali per la bambina di 6 anni." },
+        { k: "slot", when: "Sera", text: "Cena nel centro di Puerto Viejo. L'atmosfera è magica con le luci dei locali e i negozietti aperti." }
+      ]
+    },
+    {
+      n: 6, date: "2026-08-05", place: "Puerto Viejo e Cahuita", leg: "pv", stay: "pv",
+      blocks: [
+        { k: "slot", when: "Mattina", text: "Parco Nazionale di Cahuita. Spostatevi in auto (20 min) fino al villaggio di Cahuita, entrate nel parco e percorrete il sentiero pianeggiante che costeggia il mare." },
+        { k: "tip", label: "Due formule", text: "Trekking completo da Cahuita a Puerto Vargas, circa 11 km. Oppure tour in barca da Cahuita con snorkeling e camminata nel parco di circa un'ora: in tutto 4 ore." },
+        { k: "tip", label: "Per le bambine", text: "È un vero safari a piedi: scimmie cappuccino, iguane e bradipi senza fatica. Portate il costume, ogni tanto il sentiero si apre su spiagge deserte dove potete tuffarvi." },
+        { k: "slot", when: "Pranzo", text: "Nel villaggio di Cahuita, molto pittoresco e meno caotico di Puerto Viejo." },
+        { k: "slot", when: "Pomeriggio", text: "Snorkeling o relax. Se il mare è calmo potete fare un giro in barca sulla barriera corallina, altrimenti godetevi Playa Blanca proprio all'ingresso del parco." },
+        { k: "slot", when: "Sera", text: "Rientro a Puerto Viejo e cena a base di pesce fresco." }
+      ]
+    },
+    {
+      n: 7, date: "2026-08-06", place: "Puerto Viejo e Cahuita", leg: "pv", stay: "pv",
+      blocks: [
+        { k: "slot", when: "Mattina", text: "Punta Uva, in bici o in auto. È la spiaggia più bella della zona: acque piatte, niente correnti e palme che toccano l'acqua." },
+        { k: "tip", label: "Attività extra", text: "Noleggiate un kayak per 45 minuti e risalite il fiume che entra nella giungla proprio dietro la spiaggia. È facilissimo e vedrete tartarughe e uccelli esotici." },
+        { k: "slot", when: "Pomeriggio", text: "Caribeans Chocolate Tour. Le bambine scoprono come si passa dal frutto alla tavoletta e assaggiano il cioccolato artigianale più buono della zona." },
+        { k: "slot", when: "Tramonto", text: "Ultimo bagno a Playa Cocles mentre il sole scende." }
+      ],
+      note: "Chocorart, fabbrica di cioccolato tra Playa Cocles e Punta Uva: aperto dal lunedì al venerdì, 8:00-16:00."
+    },
+    {
+      n: 8, date: "2026-08-07", place: "Puerto Viejo e Cahuita → Arenal (La Fortuna)", leg: "ar", stay: "ar",
+      kind: "trasferimento",
+      blocks: [
+        { k: "plain", text: "Spostamento e relax." },
+        { k: "tip", label: "Da valutare", text: "Terme serali, oppure tour notturno al Bogarín Trail alle 17:00 per due ore, a vedere bradipi e animali." }
+      ],
+      move: "Da Puerto Viejo a La Fortuna: ~4-5 ore di viaggio.",
+      moveTag: "4-5h"
+    },
+    {
+      n: 9, date: "2026-08-08", place: "Arenal (La Fortuna)", leg: "ar", stay: "ar",
+      blocks: [
+        { k: "slot", when: "Mattina · 8:30", text: "Mistico Hanging Bridges: un percorso di ponti sospesi nella giungla. Per le bambine è emozionante camminare sopra le chiome degli alberi, e il sentiero è ben curato e non troppo faticoso." },
+        { k: "tip", label: "Consiglio", text: "Prenotate una guida: senza vedreste solo “muri di verde”, con lei vedrete bradipi, serpenti colorati e formiche tagliafoglie al lavoro." },
+        { k: "slot", when: "Pranzo", text: "In una soda (per esempio Soda Hormigas) per un casado veloce e genuino." },
+        { k: "slot", when: "Pomeriggio · 14:00", text: "Cascata La Fortuna. Circa 500 scalini per scendere, e poi risalire: a 6 e 9 anni le bambine hanno l'energia per farlo. In fondo una cascata spettacolare di 70 metri con una piscina naturale dove fare un bagno rinfrescante, l'acqua è fredda ma rigenerante." },
+        { k: "slot", when: "Tardo pomeriggio", text: "Relax alle terme. Per le famiglie le Terme Baldi sono fantastiche, hanno molti scivoli e piscine di varie temperature. Se cercate qualcosa di più naturale e meno “parco giochi”, le Terme Tabacón (più costose) o EcoTermales sono meravigliose." },
+        { k: "slot", when: "Cena", text: "Molti pacchetti terme includono la cena a buffet, comodissima per chiudere la giornata." }
+      ]
+    },
+    {
+      n: 10, date: "2026-08-09", place: "Arenal (La Fortuna) → Monteverde", leg: "mv", stay: "mv",
+      kind: "trasferimento",
+      blocks: [
+        { k: "plain", text: "Spostamento con tappa mattutina alla Cascata La Fortuna, poi relax." }
+      ],
+      move: "Da Arenal a Monteverde: ~3-4 ore.",
+      moveTag: "3-4h"
+    },
+    {
+      n: 11, date: "2026-08-10", place: "Monteverde", leg: "mv", stay: "mv",
+      blocks: [
+        { k: "slot", when: "Mattina · 9:00", text: "Riserva di Santa Elena o Riserva di Monteverde: una passeggiata nella cloud forest, la foresta nebulosa. È un ambiente magico, pieno di muschi e felci giganti, verde smeraldo e rosso." },
+        { k: "tip", label: "Sendero bosque nuboso", text: "Percorso ad anello di 6-8 km, circa 3 ore, con tour per imparare l'ecosistema." },
+        { k: "slot", when: "Pranzo", text: "Stella's: un caffè-ristorante molto carino con un giardino dove spesso arrivano uccelli e piccoli mammiferi mentre mangiate." },
+        { k: "slot", when: "Pomeriggio · 14:00", text: "Selvatura Adventure Park, tour alle 8:30, alle 11:00 e alle 13:00. Se le bambine sono coraggiose, Monteverde è il posto migliore per la zipline, il “volo dell'angelo”: Selvatura ha sistemi di sicurezza eccellenti." },
+        { k: "tip", label: "Alternativa più tranquilla", text: "All'interno del parco ci sono il Giardino delle Farfalle e il Santuario dei Bradipi, dove vedere gli animali molto da vicino in un ambiente protetto." },
+        { k: "slot", when: "Sera · 17:30", text: "Tour notturno, per esempio la Kinkajou Night Walk. È spesso la parte preferita dei bambini: armati di torce si entra nel bosco appena fa buio per vedere gli animali che si svegliano, bradipi in movimento, porcospini, rane dagli occhi rossi e tarantole nel loro buco." }
+      ],
+      note: "Riserva Santa Elena: consigliato il sentiero del Bajo e l'Encantado. Il Giardino delle Farfalle dura un'oretta. Cascate Los Murciélagos, con due ponti sospesi in mezzo alla foresta, un'oretta."
+    },
+    {
+      n: 12, date: "2026-08-11", place: "Monteverde → Manuel Antonio", leg: "ma", stay: "ma",
+      kind: "trasferimento",
+      blocks: [
+        { k: "plain", text: "Spostamento con tappa intermedia a Playa Hermosa di Jacó, dove ci sono surfisti principianti, o poco più giù dove il livello è intermedio." },
+        { k: "tip", label: "Pranzo", text: "A Puntarenas: pesce ottimo a prezzi contenuti, piccolo porticciolo e atmosfera rilassata." }
+      ],
+      move: "Da Monteverde a Manuel Antonio: ~4 ore e mezza.",
+      moveTag: "4,5h"
+    },
+    {
+      n: 13, date: "2026-08-12", place: "Manuel Antonio", leg: "ma", stay: "ma",
+      flag: "Da prenotare 1 settimana prima",
+      blocks: [
+        { k: "slot", when: "Tutto il giorno", text: "Parco Nazionale Manuel Antonio, con sentieri su pedane immersi nella giungla e arrivo alla spiaggia che assomiglia a una coda di balena, Punta Catedral." }
+      ],
+      note: "Possiamo fare da soli. Non introdurre cibi e bevande nel parco, tranne acqua comprata nell'area di ristorazione che si trova nella stazione guardiaparchi, prima della spiaggia, a giungla inoltrata. Punta Catedral e il mirador Puerto Escondido sono scivolosi quando piove. Possibilità di tour notturni."
+    },
+    {
+      n: 14, date: "2026-08-13", place: "Manuel Antonio → Marino Ballena", leg: "uv", stay: "uv",
+      kind: "trasferimento",
+      blocks: [
+        { k: "slot", when: "Mattina", text: "Partenza da Manuel Antonio e trekking alla “cola de ballena”, nel Parque Nacional Marino Ballena. È fondamentale controllare l'orario delle maree: la coda della balena, una lingua di sabbia naturale, è percorribile solo con la bassa marea." },
+        { k: "tip", label: "Per le bambine", text: "Camminare in mezzo all'oceano su questa formazione di sabbia è un'esperienza unica. Le acque ai lati sono basse e caldissime, perfette per sedersi e giocare tranquillamente." },
+        { k: "slot", when: "Pranzo", text: "Sosta nel centro di Uvita: ottime opzioni come la Soda Ranchito per un pranzo tipico." },
+        { k: "slot", when: "Pomeriggio", text: "Catarata Uvita, almeno un paio d'ore. Una piccola cascata immersa nella giungla, a pochi minuti dal centro, che è un vero e proprio scivolo naturale di roccia. Chiude alle 17:00." },
+        { k: "tip", label: "Il sentiero", text: "Bello il percorso di 1,5 km che parte dal Café Esmeralda: lungo la strada si incontra il giardino delle farfalle." },
+        { k: "tip", label: "Per le bambine", text: "Irene adorerà scivolare lungo la roccia liscia fino alla pozza sottostante, e forse anche Viola se se la sente. C'è anche una piattaforma per tuffarsi e un bellissimo giardino con farfalle." },
+        { k: "slot", when: "Sera", text: "Una birra artigianale o un succo tropicale alla Whale Tail Brewery prima di cena." }
+      ],
+      move: "Da Manuel Antonio a Marino Ballena: ~1,5 ore.",
+      moveTag: "1,5h"
+    },
+    {
+      n: 15, date: "2026-08-14", place: "Marino Ballena", leg: "uv", stay: "uv", stayUnsure: true,
+      blocks: [
+        { k: "slot", when: "Mattina · 8:30", text: "Tour di avvistamento balene e delfini. Prenotate con operatori locali come Bahia Aventuras (310 €) o Dolphin Tours: se siete nel periodo giusto, da agosto a ottobre, vedere le megattere che saltano è un'emozione che le bambine non dimenticheranno." },
+        { k: "tip", label: "Extra", text: "Spesso i tour includono una sosta per lo snorkeling vicino alle barriere coralline e una visita alle formazioni rocciose di Isla Ballena: le bambine possono letteralmente camminare dentro gallerie di roccia che si affacciano sull'oceano, un vero set da pirati." },
+        { k: "slot", when: "Tramonto", text: "L'ultimo tramonto sulla spiaggia di Uvita, dove la giungla arriva fin quasi a toccare le onde." }
+      ]
+    },
+    {
+      n: 16, date: "2026-08-15", place: "Marino Ballena → San José", leg: "sj2", stay: "sj2",
+      kind: "trasferimento",
+      blocks: [
+        { k: "plain", text: "Tappa mattutina: da considerare la Cascata Uvita e il giardino delle farfalle. Poi spostamento e relax." }
+      ],
+      move: "Da Marino Ballena a San José: ~4 ore.",
+      moveTag: "4h"
+    },
+    {
+      n: 17, date: "2026-08-16", place: "San José", leg: "sj2",
+      kind: "volo",
+      blocks: [
+        { k: "slot", when: "Volo", text: "SJO 8:45 → FCO 13:20 del 17/08" }
+      ],
+      move: "Da Sierpe: viaggio fluviale e terrestre. Snorkeling nel Golfo Dulce.",
+      moveAlt: true
+    },
+    {
+      n: 18, date: "2026-08-17", place: "Rientro a Roma", leg: "sj2",
+      kind: "volo",
+      blocks: [
+        { k: "slot", when: "Arrivo", text: "FCO 13:20" }
+      ],
+      move: "Da Corcovado / Puerto Jiménez a San José: circa 6-7 ore.",
+      moveAlt: true
+    }
+  ];
+
+  const LEGS = [
+    { id: "sj1", name: "San José", tag: "arrivo", lead: "Notte di arrivo e ritiro dell'auto a noleggio." },
+    { id: "tor", name: "Tortuguero", tag: "caraibi nord", lead: "Villaggio senza auto, canali in canoa e tartarughe. Ci si arriva solo in barca." },
+    { id: "pv",  name: "Puerto Viejo e Cahuita", tag: "caraibi sud", lead: "La base più lunga del viaggio: spiagge, bici, rescue center e cioccolato." },
+    { id: "ar",  name: "Arenal · La Fortuna", tag: "vulcano", lead: "Ponti sospesi, cascata da 70 metri e terme ai piedi del vulcano." },
+    { id: "mv",  name: "Monteverde", tag: "foresta nebulosa", lead: "Cloud forest, zipline e tour notturno." },
+    { id: "ma",  name: "Manuel Antonio", tag: "pacifico centrale", lead: "Il parco nazionale più famoso del paese. Ingresso da prenotare in anticipo." },
+    { id: "uv",  name: "Marino Ballena · Uvita", tag: "pacifico sud", lead: "La coda di balena di sabbia, la cascata-scivolo e i tour per le megattere." },
+    { id: "sj2", name: "San José", tag: "rientro", lead: "Ultima notte con navetta per l'aeroporto e volo di rientro." }
+  ];
+
+  /* ============ utility ============ */
+
+  const MESI = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
+  const GIORNI = ["dom", "lun", "mar", "mer", "gio", "ven", "sab"];
+
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const d = (iso) => new Date(iso + "T12:00:00");
+  const fmt = (iso) => { const x = d(iso); return GIORNI[x.getDay()] + " " + x.getDate() + " " + MESI[x.getMonth()]; };
+  const eur = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
+  const today = () => { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate(), 12); };
+
+  const stayById = (id) => STAYS.find((s) => s.id === id);
+  const nightsOf = (id) => DAYS.filter((x) => x.stay === id).length;
+
+  const dayText = (day) => [
+    day.place, day.flag || "", day.move || "", day.note || "",
+    day.blocks.map((b) => (b.when || b.label || "") + " " + b.text).join(" "),
+    day.stay ? [stayById(day.stay).name, stayById(day.stay).meta].join(" ") : ""
+  ].join(" ").toLowerCase();
+
+  const placeHTML = (p) => esc(p).replace(/→/g, '<span class="arrow">→</span>');
+
+  const teaserOf = (day) => {
+    const b = day.blocks[0];
+    return (b.when ? b.when + ": " : "") + b.text;
+  };
+
+  /* ============ testata ============ */
+
+  const totalStays = STAYS.reduce((a, s) => a + s.price, 0);
+
+  function renderStats() {
+    const t = today();
+    const start = d(DAYS[0].date), end = d(DAYS[DAYS.length - 1].date);
+    const items = [
+      ["Giorni", DAYS.length],
+      ["Tappe", LEGS.length],
+      ["Alloggi", eur(totalStays)]
+    ];
+    let live = "";
+    if (t < start) {
+      const gg = Math.round((start - t) / 86400000);
+      live = '<span class="stat live"><b>-' + gg + '</b> ' + (gg === 1 ? "giorno alla partenza" : "giorni alla partenza") + "</span>";
+    } else if (t <= end) {
+      const n = Math.round((t - start) / 86400000) + 1;
+      live = '<span class="stat live">Oggi è il <b>giorno ' + n + "</b></span>";
+    }
+    document.getElementById("stats").innerHTML =
+      live + items.map(([k, v]) => '<span class="stat"><b>' + esc(v) + "</b> " + k + "</span>").join("");
+  }
+
+  function renderSpine() {
+    document.getElementById("spine").innerHTML = LEGS.map((leg, i) => {
+      const nn = nightsOf(leg.id);
+      return '<div class="leg">' + (i ? '<span class="link"></span>' : "") +
+        '<button type="button" data-leg="' + leg.id + '">' + esc(leg.name) +
+        '<span class="nights">' + (nn ? nn + (nn === 1 ? " notte" : " notti") : "in giornata") + "</span></button></div>";
+    }).join("");
+  }
+
+  /* ============ vista giorni ============ */
+
+  const caret = '<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+
+  function blocksHTML(day) {
+    let out = "", open = false;
+    day.blocks.forEach((b) => {
+      if (b.k === "slot") {
+        if (!open) { out += '<div class="timeline">'; open = true; }
+        out += '<div class="slot"><div class="rail"><span class="dot"></span><span class="stem"></span></div>' +
+          '<div><span class="when">' + esc(b.when) + '</span><p>' + esc(b.text) + "</p></div></div>";
+      } else if (b.k === "tip") {
+        const tip = '<div class="tip"><span class="tl">' + esc(b.label) + "</span>" + esc(b.text) + "</div>";
+        if (open) {
+          out = out.replace(/<\/div><\/div>$/, "</div>" + tip + "</div>");
+        } else {
+          out += tip;
+        }
+      } else {
+        if (open) { out += "</div>"; open = false; }
+        out += '<p class="plain">' + esc(b.text) + "</p>";
+      }
+    });
+    if (open) out += "</div>";
+    return out;
+  }
+
+  function stayHTML(day) {
+    const s = stayById(day.stay);
+    if (!s) return "";
+    const first = DAYS.find((x) => x.stay === s.id) === day;
+    return '<div class="stay"><div class="name">' + esc(s.name) + "</div>" +
+      (s.meta ? '<div class="meta">' + esc(s.meta) + "</div>" : "") +
+      '<div class="row">' +
+      (first ? '<span class="chip cost"><b>' + eur(s.price) + "</b> totale</span>" : '<span class="chip">stessa struttura</span>') +
+      '<span class="chip"><b>' + nightsOf(s.id) + "</b> notti</span>" +
+      (s.by ? '<span class="chip">prenota ' + esc(s.by) + "</span>" : "") +
+      (day.stayUnsure ? '<span class="chip flag">notte non indicata sul foglio</span>' : "") +
+      "</div></div>";
+  }
+
+  function dayHTML(day) {
+    const dt = d(day.date);
+    const isToday = +dt === +today();
+    const chips = [];
+    if (day.flag) chips.push('<span class="chip flag">' + esc(day.flag) + "</span>");
+    if (day.kind === "volo") chips.push('<span class="chip move">volo</span>');
+    if (day.moveTag) chips.push('<span class="chip move">trasferimento <b>' + esc(day.moveTag) + "</b></span>");
+    if (day.stay && DAYS.find((x) => x.stay === day.stay) === day) {
+      chips.push('<span class="chip cost"><b>' + eur(stayById(day.stay).price) + "</b> alloggio</span>");
+    }
+    if (day.note) chips.push('<span class="chip">nota</span>');
+
+    const sections = [];
+    sections.push('<div class="sect"><h3>Programma</h3>' + blocksHTML(day) + "</div>");
+    if (day.move) {
+      sections.push('<div class="sect"><h3>' + (day.moveAlt ? "Spostamento (variante sul foglio)" : "Spostamento") +
+        '</h3><p class="plain">' + esc(day.move) + "</p></div>");
+    }
+    if (day.note) {
+      sections.push('<div class="sect"><h3>Note</h3><div class="note-box"><span class="bar"></span><div>' + esc(day.note) + "</div></div></div>");
+    }
+    if (day.stay) sections.push('<div class="sect"><h3>Dove dormiamo</h3>' + stayHTML(day) + "</div>");
+
+    return '<details class="day' + (isToday ? " today" : "") + '" id="g' + day.n + '" data-day="' + day.n + '">' +
+      '<summary><div class="daymark"><div class="dnum">G' + day.n + '</div><div class="dday">' + dt.getDate() +
+      '</div><div class="dmon">' + MESI[dt.getMonth()] + "</div></div>" +
+      '<div class="dayhead"><div class="place">' + placeHTML(day.place) + "</div>" +
+      '<div class="teaser">' + esc(teaserOf(day)) + "</div>" +
+      (chips.length ? '<div class="chips">' + chips.join("") + "</div>" : "") +
+      "</div>" + caret + "</summary>" +
+      '<div class="body">' + sections.join("") + "</div></details>";
+  }
+
+  /* ============ vista tappe ============ */
+
+  function legsHTML() {
+    return LEGS.map((leg) => {
+      const days = DAYS.filter((x) => x.leg === leg.id);
+      const s = stayById(leg.id);
+      const nn = nightsOf(leg.id);
+      const range = days.length > 1 ? fmt(days[0].date) + " → " + fmt(days[days.length - 1].date) : fmt(days[0].date);
+      return '<article class="card" data-leg-card="' + leg.id + '"><h2>' + esc(leg.name) + "</h2>" +
+        '<div class="sub">' + esc(range) + " · " + (nn ? nn + (nn === 1 ? " notte" : " notti") : "in giornata") + " · " + esc(leg.tag) + "</div>" +
+        '<p class="lead">' + esc(leg.lead) + "</p>" +
+        (s ? '<div class="row" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">' +
+          '<span class="chip">' + esc(s.name) + '</span><span class="chip cost"><b>' + eur(s.price) + "</b></span></div>" : "") +
+        '<div class="daylinks">' + days.map((x) => '<button class="daylink" data-goto="' + x.n + '">G' + x.n + " · " + esc(fmt(x.date)) + "</button>").join("") + "</div>" +
+        "</article>";
+    }).join("");
+  }
+
+  /* ============ vista alloggi ============ */
+
+  function staysHTML() {
+    const t = today();
+    const cards = STAYS.map((s) => {
+      const days = DAYS.filter((x) => x.stay === s.id);
+      const nn = days.length;
+      const cd = d(s.canc);
+      const gg = Math.round((cd - t) / 86400000);
+      let cls = "", label;
+      if (gg < 0) { cls = " past"; label = "cancellazione scaduta il " + fmt(s.canc); }
+      else if (gg <= 3) { cls = " warn"; label = "cancellazione gratuita entro " + fmt(s.canc) + (gg === 0 ? " · oggi" : " · fra " + gg + (gg === 1 ? " giorno" : " giorni")); }
+      else { label = "cancellazione gratuita entro " + fmt(s.canc); }
+
+      return '<article class="card"><div class="stayhead"><div><h2>' + esc(s.name) + "</h2>" +
+        '<div class="sub">' + esc(s.area) + " · " + fmt(days[0].date) + " → " + fmt(days[nn - 1].date) + "</div></div>" +
+        '<div class="amt">' + eur(s.price) + "</div></div>" +
+        (s.meta ? '<p class="lead">' + esc(s.meta) + "</p>" : "") +
+        '<div class="row" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:11px">' +
+        '<span class="chip"><b>' + nn + "</b> " + (nn === 1 ? "notte" : "notti") + "</span>" +
+        '<span class="chip"><b>' + eur(Math.round(s.price / nn)) + "</b> a notte</span>" +
+        (s.by ? '<span class="chip">prenotato da ' + esc(s.by) + "</span>" : "") +
+        '<span class="deadline' + cls + '">' + esc(label) + "</span></div>" +
+        '<div class="daylinks">' + days.map((x) => '<button class="daylink" data-goto="' + x.n + '">G' + x.n + "</button>").join("") + "</div>" +
+        "</article>";
+    }).join("");
+
+    const notti = STAYS.reduce((a, s) => a + nightsOf(s.id), 0);
+    return cards + '<div class="total"><div>Totale alloggi<br><span style="font-size:12px;color:var(--ink-3)">' +
+      notti + " notti · media " + eur(Math.round(totalStays / notti)) + ' a notte</span></div><div class="big">' + eur(totalStays) + "</div></div>";
+  }
+
+  /* ============ montaggio ============ */
+
+  const elDays = document.getElementById("days");
+  const elLegs = document.getElementById("legs");
+  const elStays = document.getElementById("stays");
+  const elQ = document.getElementById("q");
+  const elToggle = document.getElementById("toggleAll");
+  const elSearchRow = document.getElementById("searchrow");
+
+  renderStats();
+  renderSpine();
+  elDays.innerHTML = DAYS.map(dayHTML).join("") + '<p class="empty" id="noResults" hidden>Nessun giorno corrisponde alla ricerca.</p>';
+  elLegs.innerHTML = legsHTML();
+  elStays.innerHTML = staysHTML();
+
+  /* viste */
+  let view = "days";
+  document.querySelectorAll(".tabs button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      view = btn.dataset.view;
+      document.querySelectorAll(".tabs button").forEach((b) => b.setAttribute("aria-selected", String(b === btn)));
+      elDays.hidden = view !== "days";
+      elLegs.hidden = view !== "legs";
+      elStays.hidden = view !== "stays";
+      elSearchRow.hidden = view !== "days";
+    });
+  });
+
+  /* ricerca */
+  elQ.addEventListener("input", () => {
+    const q = elQ.value.trim().toLowerCase();
+    let visible = 0;
+    DAYS.forEach((day) => {
+      const el = document.getElementById("g" + day.n);
+      const hit = !q || dayText(day).includes(q);
+      el.hidden = !hit;
+      if (hit) visible++;
+      if (q && hit) el.open = true;
+      if (!q) el.open = +d(day.date) === +today();
+    });
+    document.getElementById("noResults").hidden = visible > 0;
+  });
+
+  /* apri / chiudi tutto */
+  elToggle.addEventListener("click", () => {
+    const opening = elToggle.textContent === "Apri tutto";
+    document.querySelectorAll(".day").forEach((el) => { el.open = opening; });
+    elToggle.textContent = opening ? "Chiudi tutto" : "Apri tutto";
+  });
+
+  /* navigazione a un giorno */
+  function goToDay(n) {
+    if (view !== "days") document.querySelector('.tabs button[data-view="days"]').click();
+    const el = document.getElementById("g" + n);
+    el.hidden = false;
+    el.open = true;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  document.addEventListener("click", (e) => {
+    const goto = e.target.closest("[data-goto]");
+    if (goto) { goToDay(Number(goto.dataset.goto)); return; }
+    const leg = e.target.closest("[data-leg]");
+    if (leg) {
+      const first = DAYS.find((x) => x.leg === leg.dataset.leg);
+      if (first) goToDay(first.n);
+    }
+  });
+
+  /* ombra sulla barra sticky */
+  const controls = document.getElementById("controls");
+  const sentinel = document.createElement("div");
+  controls.parentNode.insertBefore(sentinel, controls);
+  new IntersectionObserver(([e]) => {
+    controls.classList.toggle("stuck", e.intersectionRatio === 0);
+  }, { threshold: [0, 1] }).observe(sentinel);
+
+  /* apri il giorno di oggi, se siamo in viaggio */
+  const t = today();
+  const oggi = DAYS.find((x) => +d(x.date) === +t);
+  if (oggi) {
+    const el = document.getElementById("g" + oggi.n);
+    el.open = true;
+    requestAnimationFrame(() => el.scrollIntoView({ block: "center" }));
+  } else {
+    document.getElementById("g1").open = true;
+  }
+})();
+</script>
