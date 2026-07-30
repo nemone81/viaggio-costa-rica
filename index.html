@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Costa Rica 2026 — Itinerario</title>
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("viaggio-cr-theme");
+    if (t !== "light" && t !== "dark") {
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    }
+    document.documentElement.dataset.theme = t;
+  } catch (e) { /* ignora */ }
+})();
+</script>
 <style>
   :root {
     --ground: #F2F5EF;
@@ -108,6 +119,37 @@
   /* ---------- header ---------- */
 
   .masthead { padding: 26px 0 14px; }
+
+  .mastrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .theme-toggle {
+    flex: 0 0 auto;
+    appearance: none;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: border-color .18s, color .18s;
+  }
+
+  .theme-toggle svg { width: 17px; height: 17px; }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .theme-toggle .icon-moon { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-moon { display: inline-flex; }
 
   .eyebrow {
     font-size: 11.5px;
@@ -824,7 +866,13 @@
 <div class="wrap">
 
   <header class="masthead">
-    <div class="eyebrow">Itinerario famiglia · agosto 2026</div>
+    <div class="mastrow">
+      <div class="eyebrow">Itinerario famiglia · agosto 2026</div>
+      <button type="button" id="themeToggle" class="theme-toggle" aria-label="Cambia tema chiaro/scuro" title="Cambia tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
     <h1>Costa <span class="accent">Rica</span></h1>
     <div class="dates">ven 31 lug → lun 17 ago 2026 · Fabio, Eleonora, Irene, Viola</div>
     <div class="stats" id="stats"></div>
@@ -1337,6 +1385,15 @@
   const elQ = document.getElementById("q");
   const elToggle = document.getElementById("toggleAll");
   const elSearchRow = document.getElementById("searchrow");
+
+  /* tema chiaro/scuro */
+  const THEME_KEY = "viaggio-cr-theme";
+  const elThemeToggle = document.getElementById("themeToggle");
+  elThemeToggle.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem(THEME_KEY, next); } catch { /* ignora */ }
+  });
 
   renderStats();
   renderSpine();
