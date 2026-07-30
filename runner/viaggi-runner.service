@@ -6,5 +6,5 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 Environment=HOME=/root
-ExecStart=/root/runner-viaggi/run.sh
+ExecStart=/opt/viaggio-costa-rica/runner/run.sh
 TimeoutStartSec=2400
