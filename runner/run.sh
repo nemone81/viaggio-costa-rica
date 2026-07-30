@@ -62,6 +62,15 @@ trap 'rm -f "$ASKPASS"' EXIT
 
 gitauth() { GIT_ASKPASS="$ASKPASS" GITHUB_TOKEN="$GITHUB_TOKEN" git -C "$WORK" "$@"; }
 
+# Il token di Claude va passato a `sudo` in un file, non nell'ambiente della riga
+# di comando: sudo registra nel journal l'intero comando che esegue, quindi un
+# `env CLAUDE_CODE_OAUTH_TOKEN=...` finirebbe in chiaro nei log di sistema.
+CLAUDE_ENV=$(mktemp /run/viaggi-runner-env.XXXXXX)
+chmod 600 "$CLAUDE_ENV"
+chown runner:runner "$CLAUDE_ENV"
+printf 'CLAUDE_CODE_OAUTH_TOKEN=%s\n' "$CLAUDE_CODE_OAUTH_TOKEN" > "$CLAUDE_ENV"
+trap 'rm -f "$ASKPASS" "$CLAUDE_ENV"' EXIT
+
 chiudi_male() { # $1=numero issue, $2=motivo (markdown)
   gh issue comment "$1" --repo "$REPO" --body "$2" || true
   gh issue edit "$1" --repo "$REPO" --add-label auto-failed --remove-label in-progress || true
@@ -118,10 +127,9 @@ CLAUDE_LOG=/var/log/viaggi-runner-claude.log
 set +e
 timeout "$CLAUDE_TIMEOUT" sudo -u runner env -i \
   HOME="$RUNNER_HOME" PATH="/usr/local/bin:/usr/bin:/bin:$RUNNER_HOME/.local/bin" \
-  CLAUDE_CODE_OAUTH_TOKEN="$CLAUDE_CODE_OAUTH_TOKEN" \
-  bash -c "cd '$WORK' && '$CLAUDE' -p \"\$0\" --permission-mode acceptEdits \
+  bash -c "set -a; . \"\$1\"; set +a; rm -f \"\$1\"; cd '$WORK' && '$CLAUDE' -p \"\$0\" --permission-mode acceptEdits \
     --allowedTools 'Edit,Write,Read,Glob,Grep,Bash(git diff:*),Bash(git status:*),Bash(git log:*)' \
-    --max-turns 60 --output-format text" "$PROMPT" > "$CLAUDE_LOG" 2>&1
+    --max-turns 60 --output-format text" "$PROMPT" "$CLAUDE_ENV" > "$CLAUDE_LOG" 2>&1
 CLAUDE_RC=$?
 set -e
 if [ $CLAUDE_RC -ne 0 ]; then
