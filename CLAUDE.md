@@ -48,6 +48,41 @@ casella sul sito → POST /api/richieste (verifica PIN)
 - Comandi utili sul VPS: `systemctl list-timers viaggi-runner.timer`,
   `journalctl -u viaggi-runner -n 50`, log in `/var/log/viaggi-runner-*.log`.
 
+## Storage condiviso — predisposto, non ancora usato
+
+Serve a tenere delle spunte visibili da **tutti** i dispositivi (cose da prenotare,
+valigia, attività fatte). Backend pronto e collaudato il 30/7, nessuna UI: la
+sezione con le checkbox si aggancia quando serve.
+
+- **Upstash Redis** dal Marketplace Vercel, risorsa `viaggio-spunte`, collegata a
+  production e preview. Variabili iniettate: `KV_REST_API_URL`, `KV_REST_API_TOKEN`,
+  `KV_REST_API_READ_ONLY_TOKEN`, `KV_URL`, `REDIS_URL`. Attenzione: si chiamano
+  `KV_*`, quindi `Redis.fromEnv()` di `@upstash/redis` **non** le troverebbe (cerca
+  `UPSTASH_*`). `api/stato.js` parla con l'API REST via `fetch`, così il progetto
+  resta senza dipendenze a runtime.
+- Un solo hash Redis, `viaggio:spunte`: campo = chiave della spunta, valore =
+  `{"v":true,"t":"<ISO>"}`. Tetto di 300 chiavi, 50 per richiesta, chiavi
+  `^[a-z0-9][a-z0-9:_-]{0,63}$`.
+
+```
+GET  /api/stato   → {"spunte":{"prenota:manuel-antonio":true},"aggiornato":"…"}
+                    lettura libera, senza PIN: le spunte non sono un segreto e
+                    così le vede anche chi non ha il PIN
+POST /api/stato   → {"pin":"…","patch":{"prenota:manuel-antonio":true,"vecchia":null}}
+                    null cancella la chiave; risponde con lo stato aggiornato
+```
+
+**Per agganciare la UI** servono tre cose: leggere lo stato al montaggio della
+vista e riflettere le spunte; su `change` di una checkbox mandare la patch della
+sola chiave toccata (non tutto lo stato, altrimenti due telefoni si sovrascrivono);
+scrivere subito anche in `localStorage` e partire da lì, perché in viaggio la rete
+manca spesso e la spunta deve essere istantanea. Con la rete assente la POST
+fallisce: va accodata e ritentata, oppure si accetta che il condiviso sia
+"migliore sforzo" e il locale resti la verità sul dispositivo.
+
+Chiavi suggerite: `prenota:<slug>` per le prenotazioni, `valigia:<slug>` per la
+valigia, `fatto:g<N>:<slug>` per le attività di una giornata.
+
 ## Controlli
 
 `npm run smoke` (Playwright, Chromium headless) serve la pagina su un server locale
