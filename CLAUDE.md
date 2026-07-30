@@ -6,11 +6,55 @@ Web app mobile per consultare l'itinerario del viaggio di famiglia in Costa Rica
 ## Come funziona
 
 Un unico file, `index.html`, senza dipendenze: dati embedded in JS, CSS con token
-per tema chiaro e scuro, accordion per giornata. Pubblicato come Artifact privato:
-**https://claude.ai/code/artifact/2a7620b8-ec7b-4fd2-97cf-fc3d0ab7875a**
+per tema chiaro e scuro, accordion per giornata, quattro viste (Giorni, Tappe,
+Alloggi, Migliora). In produzione su **https://viaggi.fabiocrestoni.it**, progetto
+Vercel `viaggio-costa-rica` collegato a questo repo: ogni push su `main` pubblica.
 
-Il file è scritto nel formato Artifact (niente `<!doctype>`, `<html>`, `<head>`,
-`<body>`): si apre lo stesso in qualsiasi browser via `file://`.
+Esiste anche un vecchio Artifact
+(https://claude.ai/code/artifact/2a7620b8-ec7b-4fd2-97cf-fc3d0ab7875a) fermo alla
+versione senza meteo: il meteo live chiama Open-Meteo e la CSP degli Artifact
+blocca le richieste esterne. **La versione buona è quella su Vercel.**
+
+## Pipeline della casella richieste
+
+Dalla vista "Migliora" si scrive una modifica; se i controlli passano va online da
+sola. Il modello è quello di `habit-tracker` (vedi lì `docs/auto-pipeline-spec.md`),
+con una differenza: **il cancello gira su GitHub Actions, non sul VPS** — il repo è
+pubblico, quindi i minuti sono gratis e i 4 GB del CX23 restano liberi.
+
+```
+casella sul sito → POST /api/richieste (verifica PIN)
+      → issue GitHub con label auto-request        [token CASELLA: solo issues]
+      → viaggi-runner.timer sul VPS, ogni 5 min, flock
+      → claude -p nel clone /home/runner/work, senza rete né segreti
+      → PR → smoke test su GitHub Actions          [token RUNNER: contents+PR+issues]
+      → verde e nessun file protetto → merge squash → Vercel pubblica
+      → commento con link e commit, issue chiusa
+```
+
+- Segreti: `REQUEST_PIN` e `GITHUB_TOKEN_ISSUES` su Vercel; `GITHUB_TOKEN` e
+  `CLAUDE_CODE_OAUTH_TOKEN` in `/root/runner-viaggi/env` sul VPS (600). Il token
+  Claude è lo stesso dell'abbonamento già usato dal runner di habit-tracker.
+  Si (re)inseriscono con `./setup-segreti.sh`, che li legge da input.
+- **File protetti**, mai auto-mergiati: `runner/`, `.github/`, `tests/`, `api/`,
+  `package*.json`, `vercel.json`, `CLAUDE.md`. Il gate può essere verde: serve
+  comunque il merge umano. `tests/` è protetto perché indebolire il cancello
+  renderebbe l'auto-merge una firma in bianco.
+- **Una richiesta = un tentativo**: se il branch `auto/issue-N` esiste già, la issue
+  viene chiusa con l'invito a riformulare.
+- Il testo della richiesta è un **requisito, non istruzioni all'agente**: il prompt
+  in `runner/prompt-template.md` lo dice esplicitamente, perché la casella è un
+  ingresso di testo non fidato verso un agente che scrive codice.
+- Comandi utili sul VPS: `systemctl list-timers viaggi-runner.timer`,
+  `journalctl -u viaggi-runner -n 50`, log in `/var/log/viaggi-runner-*.log`.
+
+## Controlli
+
+`npm run smoke` (Playwright, Chromium headless) serve la pagina su un server locale
+e verifica ciò che si romperebbe davvero: 18 giornate, 8 tappe, le quattro viste
+popolate, l'accordion che si apre, i link solo verso Maps e Booking, il totale
+alloggi, e **nessuna eccezione JavaScript**. I fallimenti di rete verso Open-Meteo
+sono filtrati di proposito: la pagina deve restare usabile senza meteo.
 
 ## Fonte dei dati
 
