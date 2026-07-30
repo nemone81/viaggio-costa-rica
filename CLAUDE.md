@@ -83,6 +83,29 @@ fallisce: va accodata e ritentata, oppure si accetta che il condiviso sia
 Chiavi suggerite: `prenota:<slug>` per le prenotazioni, `valigia:<slug>` per la
 valigia, `fatto:g<N>:<slug>` per le attività di una giornata.
 
+## Icona e installazione sul telefono
+
+L'illustrazione (bradipo con gli occhiali a bandiera, vulcano e lago) è quadrata e
+piena fino ai bordi: **deve restare così**, perché iOS e Android applicano la loro
+maschera e angoli arrotondati o margini bianchi già disegnati diventerebbero aloni
+chiari sugli spigoli. Le misure si rigenerano con:
+
+```bash
+python3 tools/genera-icone.py <illustrazione.png>   # serve Pillow, solo in locale
+```
+
+- `icons/apple-touch-icon.png` (180) per l'aggiunta alla Home su iOS,
+  `icon-192`/`icon-512` per Android, `favicon-32` per la scheda del browser.
+- `icon-maskable-512.png` è **l'immagine intera**, non una versione con margine:
+  Android ritaglia al massimo il 20% del lato e il muso sta al centro.
+- Il nome sotto l'icona su iOS viene da `apple-mobile-web-app-title` ("Costa Rica"),
+  non dal `<title>` né dal manifest.
+- I due `<meta name="theme-color">` seguono il tema di sistema; il toggle li
+  riscrive a mano, altrimenti forzando il tema opposto la barra del telefono
+  resterebbe dell'altro colore (si nota in standalone, dove tocca la pagina).
+- Lo smoke test verifica che ogni icona dichiarata nel manifest esista: un
+  riferimento rotto non dà errori, l'icona semplicemente non compare.
+
 ## Controlli
 
 `npm run smoke` (Playwright, Chromium headless) serve la pagina su un server locale
