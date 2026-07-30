@@ -27,6 +27,12 @@ const server = createServer(async (req, res) => {
     return;
   }
   try {
+    if (req.url.startsWith("/icons/") || req.url.startsWith("/manifest")) {
+      const file = await readFile(path.resolve("." + req.url.split("?")[0]));
+      res.writeHead(200, { "content-type": req.url.endsWith(".png") ? "image/png" : "application/manifest+json" });
+      res.end(file);
+      return;
+    }
     const html = await readFile(path.resolve("index.html"));
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
     res.end(html);
@@ -112,6 +118,30 @@ await page.locator('.tabs button[data-view="ask"]').click();
 await page.locator("#askText").fill("test");
 await page.locator("#askSend").click();
 check("rifiuta una richiesta troppo corta", (await page.locator("#askMsg").textContent()).length > 0);
+
+console.log("Smoke test — icone e manifest");
+{
+  const manifest = JSON.parse(await readFile(path.resolve("manifest.webmanifest"), "utf8"));
+  check("il manifest è JSON valido con un nome", Boolean(manifest.name && manifest.short_name));
+
+  // Ogni file dichiarato deve esistere: un manifest che punta a un'icona
+  // mancante non dà errore a schermo, l'icona semplicemente non compare.
+  const dichiarate = manifest.icons.map((i) => i.src.replace(/^\//, ""));
+  const collegate = await page.locator('link[rel="icon"], link[rel="apple-touch-icon"]')
+    .evaluateAll((ls) => ls.map((l) => l.getAttribute("href").replace(/^\//, "")));
+  check("la pagina collega icona e apple-touch-icon", collegate.length >= 2, collegate.join(" "));
+
+  for (const f of [...new Set([...dichiarate, ...collegate])]) {
+    let esiste = true;
+    try { await readFile(path.resolve(f)); } catch { esiste = false; }
+    check(`${f} esiste`, esiste);
+  }
+
+  check("c'è un'icona maskable", manifest.icons.some((i) => i.purpose === "maskable"));
+  check("il manifest è collegato", await page.locator('link[rel="manifest"]').count() === 1);
+  check("il nome per la Home su iOS è impostato",
+    await page.locator('meta[name="apple-mobile-web-app-title"]').count() === 1);
+}
 
 console.log("Smoke test — console");
 check("nessun errore JavaScript", errori.length === 0, errori.slice(0, 3).join(" | "));

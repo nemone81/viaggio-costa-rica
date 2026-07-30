@@ -4,6 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Costa Rica 2026 — Itinerario</title>
+
+<link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+<!-- Nome sotto l'icona quando si aggiunge alla schermata Home su iOS. -->
+<meta name="apple-mobile-web-app-title" content="Costa Rica">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Colore della barra di sistema: segue il tema, come il resto della pagina. -->
+<meta name="theme-color" content="#F2F5EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C1411" media="(prefers-color-scheme: dark)">
+
+<meta name="description" content="Itinerario del viaggio in Costa Rica dal 31 luglio al 17 agosto 2026: giornate, tappe, alloggi e meteo.">
+
 <script>
 (function () {
   try {
@@ -1393,7 +1410,21 @@
     const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try { localStorage.setItem(THEME_KEY, next); } catch { /* ignora */ }
+    barraDiSistema(next);
   });
+
+  /* I due <meta name="theme-color"> seguono il tema di sistema. Se qui si forza
+     il tema opposto, la barra del telefono resterebbe dell'altro colore: va
+     riscritta a mano. Serve soprattutto ad app aggiunta alla Home, dove la
+     barra tocca la pagina. */
+  function barraDiSistema(tema) {
+    const colore = tema === "dark" ? "#0C1411" : "#F2F5EF";
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.remove());
+    const m = document.createElement("meta");
+    m.name = "theme-color";
+    m.content = colore;
+    document.head.appendChild(m);
+  }
 
   renderStats();
   renderSpine();
