@@ -36,20 +36,20 @@ chiedi() { # $1=prompt
 echo "== 1/4  PIN della casella =="
 PIN=$(chiedi "Scegli il PIN (quello che digiterai sul sito)")
 for env in production preview; do
-  printf '%s' "$PIN" | vercel env add REQUEST_PIN "$env" --force --scope "$SCOPE" >/dev/null
+  printf '%s' "$PIN" | vercel env add REQUEST_PIN "$env" --force --yes --scope "$SCOPE" >/dev/null
 done
 echo "PIN impostato su Vercel (production e preview)."
 
 echo "== 2/4  Token GitHub della casella =="
 TOK_ISSUES=$(chiedi "Incolla il token CASELLA (Issues rw)")
 for env in production preview; do
-  printf '%s' "$TOK_ISSUES" | vercel env add GITHUB_TOKEN_ISSUES "$env" --force --scope "$SCOPE" >/dev/null
+  printf '%s' "$TOK_ISSUES" | vercel env add GITHUB_TOKEN_ISSUES "$env" --force --yes --scope "$SCOPE" >/dev/null
 done
 echo "Token della casella impostato."
 
 echo "== 3/4  Token GitHub del runner (va sul VPS) =="
 TOK_RUNNER=$(chiedi "Incolla il token RUNNER (Contents + PR + Issues rw)")
-printf '%s' "$TOK_RUNNER" | ssh "$VPS" '
+printf '%s\n' "$TOK_RUNNER" | ssh "$VPS" '
   read -r T
   install -d -m 700 /root/runner-viaggi
   sed -i "/^GITHUB_TOKEN=/d" /root/runner-viaggi/env
@@ -59,6 +59,12 @@ printf '%s' "$TOK_RUNNER" | ssh "$VPS" '
 '
 
 echo "== 4/4  Accendo il runner e ripubblico =="
+if [ -n "$(git status --porcelain)" ]; then
+  echo "Attenzione: hai modifiche locali non committate. Il deploy pubblicherebbe queste,"
+  echo "non quelle su main. Committa e ripeti, oppure conferma per procedere comunque."
+  read -rp "Procedo? [s/N] " ok
+  [ "$ok" = s ] || exit 1
+fi
 ssh "$VPS" 'systemctl enable --now viaggi-runner.timer && systemctl list-timers viaggi-runner.timer --no-pager | sed -n 2p'
 vercel deploy --prod --scope "$SCOPE" >/dev/null
 echo
