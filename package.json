@@ -1,0 +1,12 @@
+{
+  "name": "viaggio-costa-rica",
+  "private": true,
+  "type": "module",
+  "description": "Itinerario Costa Rica 2026: sito statico + casella richieste",
+  "scripts": {
+    "smoke": "node tests/smoke.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}

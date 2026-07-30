@@ -1,6 +1,9 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Costa Rica 2026 — Itinerario</title>
-
 <style>
   :root {
     --ground: #F2F5EF;
@@ -16,6 +19,8 @@
     --sea-soft: #DCEDF0;
     --sun: #A66C12;
     --sun-soft: #F4E9D4;
+    --on-accent: #FFFFFF;
+    --danger: #B4442B;
     --shadow: 0 1px 2px rgba(20, 33, 27, .05), 0 8px 24px -12px rgba(20, 33, 27, .18);
 
     --serif: ui-serif, "New York", "Iowan Old Style", Palatino, Georgia, serif;
@@ -41,7 +46,9 @@
       --sea-soft: #12313A;
       --sun: #DCA95A;
       --sun-soft: #33280F;
-      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -12px rgba(0, 0, 0, .6);
+      --on-accent: #08110D;
+    --danger: #F1927B;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -12px rgba(0, 0, 0, .6);
     }
   }
 
@@ -59,6 +66,8 @@
     --sea-soft: #12313A;
     --sun: #DCA95A;
     --sun-soft: #33280F;
+    --on-accent: #08110D;
+    --danger: #F1927B;
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -12px rgba(0, 0, 0, .6);
   }
 
@@ -76,6 +85,8 @@
     --sea-soft: #DCEDF0;
     --sun: #A66C12;
     --sun-soft: #F4E9D4;
+    --on-accent: #FFFFFF;
+    --danger: #B4442B;
     --shadow: 0 1px 2px rgba(20, 33, 27, .05), 0 8px 24px -12px rgba(20, 33, 27, .18);
   }
 
@@ -539,6 +550,137 @@
 
   .money { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 
+  /* ---------- casella richieste ---------- */
+
+  .field { display: block; margin-top: 13px; }
+
+  .flabel {
+    display: block;
+    font-size: 11px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  #askForm textarea,
+  #askForm input {
+    width: 100%;
+    appearance: none;
+    background: var(--ground);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    resize: vertical;
+  }
+
+  #askForm textarea:focus-visible,
+  #askForm input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  #askPin { max-width: 160px; font-family: var(--mono); letter-spacing: .2em; }
+
+  .frow {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .primary {
+    appearance: none;
+    border: 0;
+    border-radius: 10px;
+    background: var(--accent);
+    color: var(--surface);
+    padding: 11px 18px;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .primary { color: var(--on-accent); }
+  .primary:disabled { opacity: .55; cursor: default; }
+  .primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .fmsg { font-size: 13.5px; color: var(--ink-2); }
+  .fmsg.err { color: var(--danger); }
+  .fmsg.ok { color: var(--accent); }
+
+  .reqs { display: flex; flex-direction: column; gap: 8px; margin-top: 11px; }
+
+  .req {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 11px;
+    background: var(--surface-2);
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .req a { color: inherit; text-decoration: none; flex: 1; min-width: 0; }
+  .req a:hover { text-decoration: underline; }
+
+  .req .num {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-3);
+    flex: 0 0 auto;
+    padding-top: 2px;
+  }
+
+  .badge {
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+
+  .badge.pubblicata { background: var(--accent-soft); color: var(--accent); }
+  .badge.incorso { background: var(--sea-soft); color: var(--sea); }
+  .badge.fallita, .badge.annullata { background: var(--sun-soft); color: var(--sun); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+  .linkbtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--surface);
+    color: var(--accent);
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none;
+    line-height: 1;
+    min-height: 38px;
+    transition: border-color .18s, background .18s;
+  }
+
+  .linkbtn svg { width: 15px; height: 15px; flex: 0 0 auto; }
+  .linkbtn:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .linkbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .linkbtn.off {
+    color: var(--ink-3);
+    background: transparent;
+    border-style: dashed;
+    cursor: default;
+  }
+
   /* ---------- legs / stays views ---------- */
 
   .card {
@@ -671,8 +813,14 @@
   .foot .src:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   [hidden] { display: none !important; }
-</style>
 
+.wxleg{margin-top:10px;font-size:13px;letter-spacing:.01em;opacity:.85;
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.wxleg b{font-weight:650}
+.chip.wx.avg{opacity:.72;font-style:italic}
+</style>
+</head>
+<body>
 <div class="wrap">
 
   <header class="masthead">
@@ -690,6 +838,7 @@
       <button role="tab" aria-selected="true" data-view="days">Giorni</button>
       <button role="tab" aria-selected="false" data-view="legs">Tappe</button>
       <button role="tab" aria-selected="false" data-view="stays">Alloggi</button>
+      <button role="tab" aria-selected="false" data-view="ask">Migliora</button>
     </div>
     <div class="searchrow" id="searchrow">
       <label class="search">
@@ -704,10 +853,40 @@
     <div class="list" id="days"></div>
     <div class="list" id="legs" hidden></div>
     <div class="list" id="stays" hidden></div>
+
+    <div class="list" id="ask" hidden>
+      <form class="card" id="askForm" novalidate>
+        <h2>Chiedi una modifica</h2>
+        <p class="lead">Scrivi cosa cambiare in questa pagina. La richiesta finisce in una coda,
+          Claude la esegue e, se i controlli passano, la modifica è online in pochi minuti.</p>
+
+        <label class="field">
+          <span class="flabel">La modifica</span>
+          <textarea id="askText" rows="4" maxlength="2000"
+            placeholder="Esempio: nella vista Alloggi mostra anche quanto manca alla scadenza di cancellazione."></textarea>
+        </label>
+
+        <label class="field">
+          <span class="flabel">PIN</span>
+          <input id="askPin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="••••••">
+        </label>
+
+        <div class="frow">
+          <button class="primary" type="submit" id="askSend">Invia richiesta</button>
+          <span class="fmsg" id="askMsg" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+
+      <section class="card" id="askList" hidden>
+        <h2>Richieste</h2>
+        <div class="reqs" id="reqs"></div>
+      </section>
+    </div>
   </main>
 
   <p class="foot">
     <a class="src" href="https://docs.google.com/spreadsheets/d/18fZee66ex_kRnWUK418kOjPAFTb_Md65Ld-G0UGV818/edit?gid=1353912160" target="_blank" rel="noopener">Apri il foglio Google</a><br>
+    <span id="wxnote" hidden>Meteo live da Open-Meteo: previsione fino a 16 giorni, poi media degli ultimi 3 anni.<br></span>
     Dati allineati al <span class="money">28 lug 2026</span> · gli importi sono quelli segnati sul foglio.
   </p>
 </div>
@@ -719,14 +898,22 @@
   /* ============ dati ============ */
 
   const STAYS = [
-    { id: "sj1", name: "Aloft San José Hotel", area: "San José", price: 115, canc: "2026-07-27", by: "Fabio", meta: "Notte di arrivo, vicino all'aeroporto." },
-    { id: "tor", name: "Aracari Garden Hostel", area: "Tortuguero", price: 200, canc: "2026-07-30", by: "Eleonora", meta: "Appartamento senza vera cucina · prenotato su Booking." },
-    { id: "pv",  name: "Bambutel Cocles", area: "Puerto Viejo", price: 320, canc: "2026-07-31", by: "Eleonora", meta: "Camera familiare, colazione inclusa, vicino a Playa Cocles · Booking." },
-    { id: "ar",  name: "Hotel Roca Negra", area: "La Fortuna", price: 240, canc: "2026-07-31", by: "Eleonora", meta: "Camera queen superiore con patio, senza colazione, piscina." },
-    { id: "mv",  name: "1968 House", area: "Monteverde", price: 170, canc: "2026-08-04", by: "Eleonora", meta: "" },
-    { id: "ma",  name: "Villa Pratz", area: "Manuel Antonio", price: 239, canc: "2026-08-10", by: "Eleonora", meta: "Camera quadrupla economy, colazione inclusa, piccola piscina." },
-    { id: "uv",  name: "Well Melody", area: "Uvita · Marino Ballena", price: 290, canc: "2026-07-28", by: "Eleonora", meta: "Casa vacanze con piscina, due camere da letto e barbecue. Il più bello e il più economico." },
-    { id: "sj2", name: "La Riviera Hotel", area: "San José", price: 115, canc: "2026-08-11", by: "", meta: "Camera standard, colazione inclusa, navetta da e per l'aeroporto." }
+    { id: "sj1", name: "Aloft San José Hotel", area: "San José", price: 115, canc: "2026-07-27", by: "Fabio", meta: "Notte di arrivo, vicino all'aeroporto.",
+      maps: "Aloft San Jose Hotel Costa Rica", booking: "https://www.booking.com/hotel/cr/aloft.html" },
+    { id: "tor", name: "Aracari Garden Hostel", area: "Tortuguero", price: 200, canc: "2026-07-30", by: "Eleonora", meta: "Appartamento senza vera cucina. Si arriva solo in barca: avvisare la struttura dell'orario di arrivo.",
+      maps: "Aracari Garden Hostel Tortuguero", booking: "https://www.booking.com/hotel/cr/aracari-garden-hostel-amp-suites.html" },
+    { id: "pv",  name: "Bambutel Cocles", area: "Puerto Viejo", price: 320, canc: "2026-07-31", by: "Eleonora", meta: "Camera familiare, colazione inclusa, a 15 minuti a piedi da Playa Cocles. Bici gratuite.",
+      maps: "Bambutel Cocles Puerto Viejo Costa Rica", booking: "https://www.booking.com/hotel/cr/bambutel-cocles.html" },
+    { id: "ar",  name: "Hotel Roca Negra", area: "La Fortuna", price: 240, canc: "2026-07-31", by: "Eleonora", meta: "Camera queen superiore con patio, senza colazione, piscina. Accetta solo contanti.",
+      maps: "Hotel Roca Negra del Arenal La Fortuna", booking: "https://www.booking.com/hotel/cr/roca-negra-del-arenal.html" },
+    { id: "mv",  name: "1968 House", area: "Monteverde", price: 170, canc: "2026-08-04", by: "Eleonora", meta: "Di fronte alla plaza de deportes di Santa Elena.",
+      maps: "1968house Santa Elena Monteverde", booking: "https://www.booking.com/hotel/cr/1968house.html" },
+    { id: "ma",  name: "Villa Prats", area: "Manuel Antonio", price: 239, canc: "2026-08-10", by: "Eleonora", meta: "Camera quadrupla economy, colazione inclusa, piccola piscina. A pochi passi dall'ingresso del parco.",
+      maps: "Hotel Villa Prats Manuel Antonio", booking: "https://www.booking.com/hotel/cr/villa-prats.html" },
+    { id: "uv",  name: "Well Melody", area: "Uvita · Marino Ballena", price: 290, canc: "2026-07-28", by: "Eleonora", meta: "Casa vacanze con piscina, due camere da letto e barbecue. Il più bello e il più economico.",
+      maps: "Well Melody Uvita Costa Rica", booking: "" },
+    { id: "sj2", name: "La Riviera Hotel", area: "San José", price: 115, canc: "2026-08-11", by: "", meta: "Camera standard, colazione inclusa, navetta gratuita da e per l'aeroporto: avvisare almeno un giorno prima.",
+      maps: "La Riviera Hotel San Antonio Costa Rica", booking: "https://www.booking.com/hotel/cr/la-riviera.html" }
   ];
 
   const DAYS = [
@@ -928,6 +1115,20 @@
   const MESI = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
   const GIORNI = ["dom", "lun", "mar", "mer", "gio", "ven", "sab"];
 
+  /* ============ meteo · Open-Meteo (nessuna chiave, dato live) ============ */
+  const GEO = {
+    sj1: [9.93, -84.08], tor: [10.54, -83.50], pv: [9.66, -82.75], ar: [10.47, -84.64],
+    mv: [10.30, -84.82], ma: [9.39, -84.14], uv: [9.16, -83.74], sj2: [9.93, -84.08]
+  };
+  const WMO = {
+    0: ["\u2600\uFE0F", "sereno"], 1: ["\uD83C\uDF24\uFE0F", "poco nuvoloso"], 2: ["\u26C5", "variabile"],
+    3: ["\u2601\uFE0F", "coperto"], 45: ["\uD83C\uDF2B\uFE0F", "nebbia"], 48: ["\uD83C\uDF2B\uFE0F", "nebbia"],
+    51: ["\uD83C\uDF26\uFE0F", "pioviggine"], 53: ["\uD83C\uDF26\uFE0F", "pioviggine"], 55: ["\uD83C\uDF26\uFE0F", "pioviggine"],
+    61: ["\uD83C\uDF27\uFE0F", "pioggia debole"], 63: ["\uD83C\uDF27\uFE0F", "pioggia"], 65: ["\uD83C\uDF27\uFE0F", "pioggia forte"],
+    80: ["\uD83C\uDF26\uFE0F", "rovesci"], 81: ["\uD83C\uDF26\uFE0F", "rovesci"], 82: ["\u26C8\uFE0F", "rovesci forti"],
+    95: ["\u26C8\uFE0F", "temporale"], 96: ["\u26C8\uFE0F", "temporale"], 99: ["\u26C8\uFE0F", "temporale"]
+  };
+
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const d = (iso) => new Date(iso + "T12:00:00");
   const fmt = (iso) => { const x = d(iso); return GIORNI[x.getDay()] + " " + x.getDate() + " " + MESI[x.getMonth()]; };
@@ -935,6 +1136,22 @@
   const today = () => { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate(), 12); };
 
   const stayById = (id) => STAYS.find((s) => s.id === id);
+
+  const ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+  const ICON_BED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 18V7m0 6h18m0 5v-7a2 2 0 0 0-2-2h-8v4"/><circle cx="7" cy="10" r="2"/></svg>';
+
+  /* Google Maps: ricerca per nome, non coordinate: il pin resta corretto anche
+     se la struttura cambia indirizzo. */
+  function linksHTML(s) {
+    const maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.maps);
+    let out = '<div class="links"><a class="linkbtn" href="' + maps + '" target="_blank" rel="noopener">' + ICON_PIN + "Mappa</a>";
+    if (s.booking) {
+      out += '<a class="linkbtn" href="' + esc(s.booking) + '" target="_blank" rel="noopener">' + ICON_BED + "Booking</a>";
+    } else {
+      out += '<span class="linkbtn off">' + ICON_BED + "Non su Booking</span>";
+    }
+    return out + "</div>";
+  }
   const nightsOf = (id) => DAYS.filter((x) => x.stay === id).length;
 
   const dayText = (day) => [
@@ -1021,13 +1238,15 @@
       '<span class="chip"><b>' + nightsOf(s.id) + "</b> notti</span>" +
       (s.by ? '<span class="chip">prenota ' + esc(s.by) + "</span>" : "") +
       (day.stayUnsure ? '<span class="chip flag">notte non indicata sul foglio</span>' : "") +
-      "</div></div>";
+      "</div>" + linksHTML(s) + "</div>";
   }
 
   function dayHTML(day) {
     const dt = d(day.date);
     const isToday = +dt === +today();
     const chips = [];
+    if (GEO[day.leg]) chips.push('<span class="chip wx" data-wx="' + day.date +
+      '" data-wxleg="' + day.leg + '" style="display:none"></span>');
     if (day.flag) chips.push('<span class="chip flag">' + esc(day.flag) + "</span>");
     if (day.kind === "volo") chips.push('<span class="chip move">volo</span>');
     if (day.moveTag) chips.push('<span class="chip move">trasferimento <b>' + esc(day.moveTag) + "</b></span>");
@@ -1068,6 +1287,7 @@
       return '<article class="card" data-leg-card="' + leg.id + '"><h2>' + esc(leg.name) + "</h2>" +
         '<div class="sub">' + esc(range) + " · " + (nn ? nn + (nn === 1 ? " notte" : " notti") : "in giornata") + " · " + esc(leg.tag) + "</div>" +
         '<p class="lead">' + esc(leg.lead) + "</p>" +
+        (GEO[leg.id] ? '<div class="wxleg" data-wxsum="' + leg.id + '" style="display:none"></div>' : "") +
         (s ? '<div class="row" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">' +
           '<span class="chip">' + esc(s.name) + '</span><span class="chip cost"><b>' + eur(s.price) + "</b></span></div>" : "") +
         '<div class="daylinks">' + days.map((x) => '<button class="daylink" data-goto="' + x.n + '">G' + x.n + " · " + esc(fmt(x.date)) + "</button>").join("") + "</div>" +
@@ -1098,6 +1318,7 @@
         '<span class="chip"><b>' + eur(Math.round(s.price / nn)) + "</b> a notte</span>" +
         (s.by ? '<span class="chip">prenotato da ' + esc(s.by) + "</span>" : "") +
         '<span class="deadline' + cls + '">' + esc(label) + "</span></div>" +
+        linksHTML(s) +
         '<div class="daylinks">' + days.map((x) => '<button class="daylink" data-goto="' + x.n + '">G' + x.n + "</button>").join("") + "</div>" +
         "</article>";
     }).join("");
@@ -1123,6 +1344,7 @@
   elStays.innerHTML = staysHTML();
 
   /* viste */
+  const elAsk = document.getElementById("ask");
   let view = "days";
   document.querySelectorAll(".tabs button").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1131,9 +1353,93 @@
       elDays.hidden = view !== "days";
       elLegs.hidden = view !== "legs";
       elStays.hidden = view !== "stays";
+      elAsk.hidden = view !== "ask";
       elSearchRow.hidden = view !== "days";
+      if (view === "ask") caricaRichieste();
     });
   });
+
+  /* ---------- casella richieste ----------
+     Il PIN resta solo in questo browser (localStorage) e viene verificato dalla
+     funzione /api/richieste: qui non c'è nessun controllo di sicurezza. */
+
+  const elForm = document.getElementById("askForm");
+  const elText = document.getElementById("askText");
+  const elPin = document.getElementById("askPin");
+  const elSend = document.getElementById("askSend");
+  const elMsg = document.getElementById("askMsg");
+  const elReqs = document.getElementById("reqs");
+  const elReqBox = document.getElementById("askList");
+
+  const PIN_KEY = "viaggio-cr-pin";
+  try {
+    const salvato = localStorage.getItem(PIN_KEY);
+    if (salvato) elPin.value = salvato;
+  } catch { /* Safari in navigazione privata */ }
+
+  function messaggio(testo, tipo) {
+    elMsg.textContent = testo;
+    elMsg.className = "fmsg" + (tipo ? " " + tipo : "");
+  }
+
+  elForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const testo = elText.value.trim();
+    if (testo.length < 10) {
+      messaggio("Scrivi almeno una frase: serve capire cosa cambiare.", "err");
+      elText.focus();
+      return;
+    }
+    if (!elPin.value) {
+      messaggio("Serve il PIN per accodare una modifica.", "err");
+      elPin.focus();
+      return;
+    }
+
+    elSend.disabled = true;
+    messaggio("Invio…");
+    try {
+      const res = await fetch("/api/richieste", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ testo, pin: elPin.value }),
+      });
+      const dati = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        messaggio(dati.errore || `Errore ${res.status}.`, "err");
+        return;
+      }
+      try { localStorage.setItem(PIN_KEY, elPin.value); } catch { /* ignora */ }
+      elText.value = "";
+      messaggio(dati.messaggio || "Richiesta accodata.", "ok");
+      caricaRichieste();
+    } catch {
+      messaggio("Niente rete: la richiesta non è partita, riprova quando torni online.", "err");
+    } finally {
+      elSend.disabled = false;
+    }
+  });
+
+  function reqHTML(r) {
+    const cls = r.stato.replace(/\s/g, "");
+    return '<div class="req"><span class="num">#' + r.numero + "</span>" +
+      '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.titolo) + "</a>" +
+      '<span class="badge ' + cls + '">' + esc(r.stato) + "</span></div>";
+  }
+
+  let richiesteCaricate = false;
+  async function caricaRichieste() {
+    if (richiesteCaricate) return;
+    try {
+      const res = await fetch("/api/richieste");
+      if (!res.ok) return;
+      const { richieste } = await res.json();
+      if (!richieste || !richieste.length) return;
+      elReqs.innerHTML = richieste.map(reqHTML).join("");
+      elReqBox.hidden = false;
+      richiesteCaricate = true;
+    } catch { /* offline: la lista resta nascosta */ }
+  }
 
   /* ricerca */
   elQ.addEventListener("input", () => {
@@ -1180,9 +1486,122 @@
   const controls = document.getElementById("controls");
   const sentinel = document.createElement("div");
   controls.parentNode.insertBefore(sentinel, controls);
-  new IntersectionObserver(([e]) => {
+  if (window.IntersectionObserver) new IntersectionObserver(([e]) => {
     controls.classList.toggle("stuck", e.intersectionRatio === 0);
   }, { threshold: [0, 1] }).observe(sentinel);
+
+  /* ============ previsioni live ============ */
+  const WX = {};
+
+  async function loadWeather() {
+    const nodes = Array.from(document.querySelectorAll("[data-wx]"));
+    if (!nodes.length) return;
+    const keys = [...new Set(nodes.map((el) => el.dataset.wxleg))].filter((k) => GEO[k]);
+    const uniq = [...new Set(keys.map((k) => GEO[k].join(",")))];
+    const lats = uniq.map((c) => c.split(",")[0]).join(",");
+    const lons = uniq.map((c) => c.split(",")[1]).join(",");
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lats + "&longitude=" + lons +
+      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
+      "&timezone=America%2FCosta_Rica&forecast_days=16";
+    const res = await fetch(url);
+    if (!res.ok) return;
+    const json = await res.json();
+    const arr = Array.isArray(json) ? json : [json];
+    const byCoord = {};
+    uniq.forEach((c, i) => { byCoord[c] = arr[i]; });
+
+    let shown = 0;
+    nodes.forEach((el) => {
+      const data = byCoord[GEO[el.dataset.wxleg].join(",")];
+      if (!data || !data.daily) return;
+      const i = data.daily.time.indexOf(el.dataset.wx);
+      if (i < 0) return;
+      const code = WMO[data.daily.weather_code[i]] || ["\uD83C\uDF21\uFE0F", ""];
+      const tmax = Math.round(data.daily.temperature_2m_max[i]);
+      const tmin = Math.round(data.daily.temperature_2m_min[i]);
+      const rain = data.daily.precipitation_probability_max[i];
+      el.innerHTML = code[0] + " <b>" + tmax + "\u00B0</b>/" + tmin + "\u00B0" +
+        (rain != null ? " \u00B7 " + rain + "% pioggia" : "");
+      el.title = code[1];
+      el.style.display = "";
+      WX[el.dataset.wx] = { leg: el.dataset.wxleg, tmax: tmax, tmin: tmin, rain: rain, icon: code[0] };
+      shown++;
+    });
+    if (shown) {
+      const note = document.getElementById("wxnote");
+      if (note) note.hidden = false;
+    }
+    renderLegWeather();
+    loadNormals(nodes.filter((el) => !el.innerHTML)).catch(() => {});
+  }
+
+  /* medie storiche per i giorni oltre l'orizzonte di previsione */
+  async function loadNormals(missing) {
+    if (!missing.length) return;
+    const legs = [...new Set(missing.map((el) => el.dataset.wxleg))].filter((k) => GEO[k]);
+    const uniq = [...new Set(legs.map((k) => GEO[k].join(",")))];
+    if (!uniq.length) return;
+    const y = new Date().getFullYear();
+    const url = "https://archive-api.open-meteo.com/v1/archive?latitude=" +
+      uniq.map((c) => c.split(",")[0]).join(",") + "&longitude=" + uniq.map((c) => c.split(",")[1]).join(",") +
+      "&start_date=" + (y - 3) + "-08-01&end_date=" + (y - 1) + "-08-31" +
+      "&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=America%2FCosta_Rica";
+    const res = await fetch(url);
+    if (!res.ok) return;
+    const json = await res.json();
+    const arr = Array.isArray(json) ? json : [json];
+    const byCoord = {};
+    uniq.forEach((c, i) => { byCoord[c] = arr[i]; });
+
+    missing.forEach((el) => {
+      const data = byCoord[GEO[el.dataset.wxleg].join(",")];
+      if (!data || !data.daily) return;
+      /* finestra di +/- 3 giorni attorno alla stessa data: campione piu' stabile */
+      const ref = new Date("2000-" + el.dataset.wx.slice(5) + "T12:00:00");
+      const near = (t) => Math.abs(new Date("2000-" + t.slice(5) + "T12:00:00") - ref) <= 3 * 864e5;
+      const mx = [], mn = [], pr = [];
+      data.daily.time.forEach((t, i) => {
+        if (!near(t)) return;
+        if (data.daily.temperature_2m_max[i] != null) mx.push(data.daily.temperature_2m_max[i]);
+        if (data.daily.temperature_2m_min[i] != null) mn.push(data.daily.temperature_2m_min[i]);
+        if (data.daily.precipitation_sum[i] != null) pr.push(data.daily.precipitation_sum[i]);
+      });
+      if (!mx.length) return;
+      const avg = (a) => a.reduce((x, y2) => x + y2, 0) / a.length;
+      const tmax = Math.round(avg(mx)), tmin = Math.round(avg(mn));
+      const wet = pr.length ? Math.round((pr.filter((v) => v >= 1).length / pr.length) * 100) : null;
+      el.classList.add("avg");
+      el.innerHTML = "\uD83D\uDCC5 <b>" + tmax + "\u00B0</b>/" + tmin + "\u00B0" +
+        (wet != null ? " \u00B7 " + wet + "% giorni di pioggia" : "");
+      el.title = "Media degli ultimi 3 anni, finestra di +/- 3 giorni: la previsione arriva a 16 giorni.";
+      el.style.display = "";
+      WX[el.dataset.wx] = { leg: el.dataset.wxleg, tmax: tmax, tmin: tmin, rain: wet, icon: "\uD83D\uDCC5", avg: true };
+    });
+    renderLegWeather();
+    const note = document.getElementById("wxnote");
+    if (note) note.hidden = false;
+  }
+
+  /* sintesi per tappa */
+  function renderLegWeather() {
+    document.querySelectorAll("[data-wxsum]").forEach((box) => {
+      const id = box.dataset.wxsum;
+      const rows = Object.values(WX).filter((w) => w.leg === id);
+      if (!rows.length) return;
+      const tmax = Math.round(Math.max(...rows.map((r) => r.tmax)));
+      const tmin = Math.round(Math.min(...rows.map((r) => r.tmin)));
+      const rains = rows.map((r) => r.rain).filter((r) => r != null);
+      const rain = rains.length ? Math.round(rains.reduce((a, b) => a + b, 0) / rains.length) : null;
+      const icons = [...new Set(rows.map((r) => r.icon))].slice(0, 3).join(" ");
+      const stimato = rows.every((r) => r.avg);
+      box.innerHTML = icons + " <span><b>" + tmax + "\u00B0</b> / " + tmin + "\u00B0" +
+        (rain != null ? " \u00B7 pioggia " + rain + "%" : "") +
+        (stimato ? " \u00B7 media storica" : "") + "</span>";
+      box.style.display = "";
+    });
+  }
+
+  loadWeather().catch(() => {});
 
   /* apri il giorno di oggi, se siamo in viaggio */
   const t = today();
@@ -1196,3 +1615,5 @@
   }
 })();
 </script>
+</body>
+</html>

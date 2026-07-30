@@ -1,0 +1,11 @@
+[Unit]
+Description=Controlla la coda delle richieste ogni 5 minuti
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Unit=viaggi-runner.service
+
+[Install]
+WantedBy=timers.target

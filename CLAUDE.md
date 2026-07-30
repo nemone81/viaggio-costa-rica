@@ -54,6 +54,12 @@ Quando si rigenera, mantenere queste scelte:
   Well Melody con badge "notte non indicata sul foglio". Non darla per confermata.
 - Giorni 17-18: le colonne Spostamenti (Sierpe, Golfo Dulce, Corcovado) non sono
   coerenti col resto e sono etichettate "variante sul foglio".
+- Ogni struttura ha due pulsanti, Mappa e Booking, nei campi `maps` e `booking`
+  di `STAYS`. Il link Maps è una **ricerca per nome** (`maps/search/?api=1&query=`),
+  non coordinate: resta valido anche se cambia l'indirizzo. Gli URL Booking sono
+  verificati uno per uno; "Villa pratz" del foglio corrisponde a Hotel Villa Prats
+  (camera quadrupla economy con colazione e piscina). Well Melody non risulta su
+  Booking: mostra un pulsante disattivato, non inventare un URL.
 
 ## Nota sulle date
 

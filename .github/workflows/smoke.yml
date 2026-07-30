@@ -1,0 +1,31 @@
+name: smoke
+
+# È il cancello della pipeline: il runner sul VPS merge solo se questo check è verde.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Installa Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Smoke test
+        run: npm run smoke
+
+      - name: Controlla la funzione richieste
+        run: node --check api/richieste.js
