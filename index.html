@@ -1333,7 +1333,7 @@
     if (day.stay) sections.push('<div class="sect"><h3>Dove dormiamo</h3>' + stayHTML(day) + "</div>");
 
     return '<details class="day' + (isToday ? " today" : "") + '" id="g' + day.n + '" data-day="' + day.n + '">' +
-      '<summary><div class="daymark"><div class="dnum">G' + day.n + '</div><div class="dday">' + dt.getDate() +
+      '<summary><div class="daymark"><div class="dnum">' + GIORNI[dt.getDay()].toUpperCase() + '</div><div class="dday">' + dt.getDate() +
       '</div><div class="dmon">' + MESI[dt.getMonth()] + "</div></div>" +
       '<div class="dayhead"><div class="place">' + placeHTML(day.place) + "</div>" +
       '<div class="teaser">' + esc(teaserOf(day)) + "</div>" +
