@@ -579,6 +579,9 @@
     margin-bottom: 2px;
   }
 
+  .tip a { color: var(--accent); font-weight: 600; text-decoration: none; }
+  .tip a:hover { text-decoration: underline; }
+
   .plain { margin: 0; font-size: 15px; }
   .plain + .plain { margin-top: 6px; }
 
@@ -1087,7 +1090,7 @@
       n: 11, date: "2026-08-10", place: "Monteverde", leg: "mv", stay: "mv",
       blocks: [
         { k: "slot", when: "Mattina · 9:00", text: "Riserva di Santa Elena o Riserva di Monteverde: una passeggiata nella cloud forest, la foresta nebulosa. È un ambiente magico, pieno di muschi e felci giganti, verde smeraldo e rosso." },
-        { k: "tip", label: "Sendero bosque nuboso", text: "Percorso ad anello di 6-8 km, circa 3 ore, con tour per imparare l'ecosistema. È nella Riserva di Santa Elena: la mattina può fare fresco, consigliata una giacca. Va prenotato con 2 giorni di anticipo sul sito della riserva." },
+        { k: "tip", label: "Sendero bosque nuboso", text: "Percorso ad anello di 6-8 km, circa 3 ore, con tour per imparare l'ecosistema. È nella Riserva di Santa Elena: la mattina può fare fresco, consigliata una giacca. Va prenotato con 2 giorni di anticipo sul sito della riserva.", link: "https://reservasantaelena.org/index.php/reservaciones/" },
         { k: "slot", when: "Pranzo", text: "Stella's: un caffè-ristorante molto carino con un giardino dove spesso arrivano uccelli e piccoli mammiferi mentre mangiate." },
         { k: "slot", when: "Pomeriggio · 14:00", text: "Selvatura Adventure Park, tour alle 8:30, alle 11:00 e alle 13:00. Se le bambine sono coraggiose, Monteverde è il posto migliore per la zipline, il “volo dell'angelo”: Selvatura ha sistemi di sicurezza eccellenti." },
         { k: "tip", label: "Alternativa più tranquilla", text: "All'interno del parco ci sono il Giardino delle Farfalle e il Santuario dei Bradipi, dove vedere gli animali molto da vicino in un ambiente protetto." },
@@ -1278,7 +1281,8 @@
         out += '<div class="slot"><div class="rail"><span class="dot"></span><span class="stem"></span></div>' +
           '<div><span class="when">' + esc(b.when) + '</span><p>' + esc(b.text) + "</p></div></div>";
       } else if (b.k === "tip") {
-        const tip = '<div class="tip"><span class="tl">' + esc(b.label) + "</span>" + esc(b.text) + "</div>";
+        const tipLink = b.link ? ' <a href="' + esc(b.link) + '" target="_blank" rel="noopener">Prenota qui</a>' : "";
+        const tip = '<div class="tip"><span class="tl">' + esc(b.label) + "</span>" + esc(b.text) + tipLink + "</div>";
         if (open) {
           out = out.replace(/<\/div><\/div>$/, "</div>" + tip + "</div>");
         } else {
